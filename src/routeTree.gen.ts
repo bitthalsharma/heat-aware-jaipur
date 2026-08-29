@@ -10,11 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DataSourcesRouteImport } from './routes/data-sources'
 import { Route as ForecastRouteImport } from './routes/forecast'
+import { Route as MethodologyRouteImport } from './routes/methodology'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataSourcesRoute = DataSourcesRouteImport.update({
+  id: '/data-sources',
+  path: '/data-sources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForecastRoute = ForecastRouteImport.update({
@@ -22,31 +29,44 @@ const ForecastRoute = ForecastRouteImport.update({
   path: '/forecast',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/data-sources': typeof DataSourcesRoute
   '/forecast': typeof ForecastRoute
+  '/methodology': typeof MethodologyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/data-sources': typeof DataSourcesRoute
   '/forecast': typeof ForecastRoute
+  '/methodology': typeof MethodologyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/data-sources': typeof DataSourcesRoute
   '/forecast': typeof ForecastRoute
+  '/methodology': typeof MethodologyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/forecast'
+  fullPaths: '/' | '/data-sources' | '/forecast' | '/methodology'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forecast'
-  id: '__root__' | '/' | '/forecast'
+  to: '/' | '/data-sources' | '/forecast' | '/methodology'
+  id: '__root__' | '/' | '/data-sources' | '/forecast' | '/methodology'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DataSourcesRoute: typeof DataSourcesRoute
   ForecastRoute: typeof ForecastRoute
+  MethodologyRoute: typeof MethodologyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +78,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/data-sources': {
+      id: '/data-sources'
+      path: '/data-sources'
+      fullPath: '/data-sources'
+      preLoaderRoute: typeof DataSourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/forecast': {
       id: '/forecast'
       path: '/forecast'
@@ -65,12 +92,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForecastRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/methodology': {
+      id: '/methodology'
+      path: '/methodology'
+      fullPath: '/methodology'
+      preLoaderRoute: typeof MethodologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DataSourcesRoute: DataSourcesRoute,
   ForecastRoute: ForecastRoute,
+  MethodologyRoute: MethodologyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
