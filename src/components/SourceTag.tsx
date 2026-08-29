@@ -15,7 +15,7 @@ export function SourceTag({
 }: {
   kind: DataKind;
   source: string;
-  timestamp?: string | null;
+  timestamp?: string | null | undefined;
 }) {
   return (
     <p className="mt-2 text-[11px] leading-snug text-muted-foreground">

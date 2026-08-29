@@ -202,7 +202,7 @@ function Kpi({
   sub: string;
   kind: "LIVE" | "DERIVED" | "MODEL";
   source: string;
-  timestamp?: string | null;
+  timestamp?: string | null | undefined;
 }) {
   return (
     <article className="panel p-4">
