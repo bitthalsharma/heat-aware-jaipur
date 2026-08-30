@@ -48,7 +48,7 @@ function WardsPage() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setDataset(loadWardDataset());
+    setDataset(loadWardDataset() ?? builtInWardDataset());
   }, []);
 
   async function handleFile(file: File) {
