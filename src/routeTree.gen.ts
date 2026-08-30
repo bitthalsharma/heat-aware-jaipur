@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DataSourcesRouteImport } from './routes/data-sources'
 import { Route as ForecastRouteImport } from './routes/forecast'
 import { Route as MethodologyRouteImport } from './routes/methodology'
+import { Route as WardsRouteImport } from './routes/wards'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const MethodologyRoute = MethodologyRouteImport.update({
   path: '/methodology',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WardsRoute = WardsRouteImport.update({
+  id: '/wards',
+  path: '/wards',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/data-sources': typeof DataSourcesRoute
   '/forecast': typeof ForecastRoute
   '/methodology': typeof MethodologyRoute
+  '/wards': typeof WardsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/data-sources': typeof DataSourcesRoute
   '/forecast': typeof ForecastRoute
   '/methodology': typeof MethodologyRoute
+  '/wards': typeof WardsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,15 @@ export interface FileRoutesById {
   '/data-sources': typeof DataSourcesRoute
   '/forecast': typeof ForecastRoute
   '/methodology': typeof MethodologyRoute
+  '/wards': typeof WardsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/data-sources' | '/forecast' | '/methodology'
+  fullPaths: '/' | '/data-sources' | '/forecast' | '/methodology' | '/wards'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/data-sources' | '/forecast' | '/methodology'
-  id: '__root__' | '/' | '/data-sources' | '/forecast' | '/methodology'
+  to: '/' | '/data-sources' | '/forecast' | '/methodology' | '/wards'
+  id:
+    '__root__' | '/' | '/data-sources' | '/forecast' | '/methodology' | '/wards'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +77,7 @@ export interface RootRouteChildren {
   DataSourcesRoute: typeof DataSourcesRoute
   ForecastRoute: typeof ForecastRoute
   MethodologyRoute: typeof MethodologyRoute
+  WardsRoute: typeof WardsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +110,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MethodologyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wards': {
+      id: '/wards'
+      path: '/wards'
+      fullPath: '/wards'
+      preLoaderRoute: typeof WardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +125,7 @@ const rootRouteChildren: RootRouteChildren = {
   DataSourcesRoute: DataSourcesRoute,
   ForecastRoute: ForecastRoute,
   MethodologyRoute: MethodologyRoute,
+  WardsRoute: WardsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
