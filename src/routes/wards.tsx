@@ -5,6 +5,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { AppShell } from "../components/AppShell";
 import { SourceTag } from "../components/SourceTag";
 import {
+  builtInWardDataset,
   clearWardDataset,
   loadWardDataset,
   saveWardDataset,
@@ -47,7 +48,7 @@ function WardsPage() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setDataset(loadWardDataset());
+    setDataset(loadWardDataset() ?? builtInWardDataset());
   }, []);
 
   async function handleFile(file: File) {

@@ -44,6 +44,8 @@ export interface WardDataset {
   /** ISO timestamp of when the dataset was imported into this browser. */
   importedAt: string;
   wards: Ward[];
+  /** True when the dataset ships with the app rather than being operator-imported. */
+  builtIn?: boolean;
 }
 
 export interface WardValidationResult {

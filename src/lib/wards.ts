@@ -7,6 +7,9 @@ import type {
   WardGeometry,
   WardValidationResult,
 } from "../types/wards";
+import bundledWards from "../data/jaipur-wards.json";
+
+const BUILT_IN_IMPORTED_AT = "2026-08-30T00:00:00.000Z";
 
 const EARTH_RADIUS_KM = 6371.0088;
 
@@ -242,6 +245,23 @@ export function validateWardGeoJSON(raw: unknown): WardValidationResult {
 }
 
 const STORAGE_KEY = "helix.wardDataset.v1";
+
+/**
+ * Ward boundaries bundled with the app. Real, third-party published geometry —
+ * not invented. Used until an operator imports their own authoritative file.
+ */
+export function builtInWardDataset(): WardDataset | null {
+  const result = validateWardGeoJSON(bundledWards);
+  if (!result.ok) return null;
+  return {
+    fileName: "Jaipur_Wards.geojson",
+    sourceLabel:
+      "DataMeet Municipal Spatial Data — Jaipur ward boundaries (77 wards, CC-BY 4.0)",
+    importedAt: BUILT_IN_IMPORTED_AT,
+    wards: result.wards,
+    builtIn: true,
+  };
+}
 
 export function loadWardDataset(): WardDataset | null {
   if (typeof window === "undefined") return null;
