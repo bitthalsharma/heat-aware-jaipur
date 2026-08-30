@@ -5,6 +5,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { AppShell } from "../components/AppShell";
 import { SourceTag } from "../components/SourceTag";
 import {
+  builtInWardDataset,
   clearWardDataset,
   loadWardDataset,
   saveWardDataset,
