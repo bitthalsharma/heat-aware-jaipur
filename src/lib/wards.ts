@@ -7,6 +7,9 @@ import type {
   WardGeometry,
   WardValidationResult,
 } from "../types/wards";
+import bundledWards from "../data/jaipur-wards.json";
+
+const BUILT_IN_IMPORTED_AT = "2026-08-30T00:00:00.000Z";
 
 const EARTH_RADIUS_KM = 6371.0088;
 
