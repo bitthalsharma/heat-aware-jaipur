@@ -64,3 +64,10 @@ bun run dev     # http://localhost:8080
 Prototype heat-health risk estimation. No mortality prediction is claimed; thresholds are
 prototype values requiring local calibration and validation before operational deployment.
 Recommended actions are advisory — final decisions remain with authorized authorities.
+
+## Phase 3 — Ward geometry (complete)
+
+- `/wards` route: Leaflet map on the real Jaipur municipal boundary (OpenStreetMap relation 14277849, ODbL, stored in `src/data/jaipur-boundary.json`).
+- Operator import of a verified ward GeoJSON (WGS84 FeatureCollection) with validation, provenance label and browser-local persistence.
+- Ward register table with number/name/zone as supplied, plus derived area and centroid.
+- No ward polygons are synthesised; ward risk scoring stays disabled until a verified dataset is imported.
