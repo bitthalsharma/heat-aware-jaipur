@@ -175,19 +175,26 @@ function WardsPage() {
                 <p className="text-muted-foreground">File: {dataset.fileName}</p>
                 <p className="text-muted-foreground">Source: {dataset.sourceLabel}</p>
                 <p className="text-muted-foreground">
-                  Imported: {new Date(dataset.importedAt).toLocaleString("en-IN")}
+                  {dataset.builtIn ? "Bundled with the app" : "Imported"}:{" "}
+                  {new Date(dataset.importedAt).toLocaleString("en-IN")}
                 </p>
-                <button
-                  onClick={() => {
-                    clearWardDataset();
-                    setDataset(null);
-                    setSelectedId(null);
-                    if (fileRef.current) fileRef.current.value = "";
-                  }}
-                  className="mt-2 rounded border border-input px-2 py-1 text-xs font-medium hover:bg-accent"
-                >
-                  Remove dataset
-                </button>
+                {dataset.builtIn ? (
+                  <p className="mt-2 rounded border border-border bg-muted/40 p-2 text-muted-foreground">
+                    Built-in reference dataset. Import your own verified file above to replace it.
+                  </p>
+                ) : (
+                  <button
+                    onClick={() => {
+                      clearWardDataset();
+                      setDataset(builtInWardDataset());
+                      setSelectedId(null);
+                      if (fileRef.current) fileRef.current.value = "";
+                    }}
+                    className="mt-2 rounded border border-input px-2 py-1 text-xs font-medium hover:bg-accent"
+                  >
+                    Remove dataset
+                  </button>
+                )}
               </div>
             ) : (
               <p className="border-t border-border pt-3 text-xs text-muted-foreground">
