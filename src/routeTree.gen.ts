@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DataSourcesRouteImport } from './routes/data-sources'
+import { Route as EnvironmentRouteImport } from './routes/environment'
 import { Route as ForecastRouteImport } from './routes/forecast'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as WardsRouteImport } from './routes/wards'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const DataSourcesRoute = DataSourcesRouteImport.update({
   id: '/data-sources',
   path: '/data-sources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnvironmentRoute = EnvironmentRouteImport.update({
+  id: '/environment',
+  path: '/environment',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForecastRoute = ForecastRouteImport.update({
@@ -44,6 +50,7 @@ const WardsRoute = WardsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/data-sources': typeof DataSourcesRoute
+  '/environment': typeof EnvironmentRoute
   '/forecast': typeof ForecastRoute
   '/methodology': typeof MethodologyRoute
   '/wards': typeof WardsRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/data-sources': typeof DataSourcesRoute
+  '/environment': typeof EnvironmentRoute
   '/forecast': typeof ForecastRoute
   '/methodology': typeof MethodologyRoute
   '/wards': typeof WardsRoute
@@ -59,22 +67,42 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/data-sources': typeof DataSourcesRoute
+  '/environment': typeof EnvironmentRoute
   '/forecast': typeof ForecastRoute
   '/methodology': typeof MethodologyRoute
   '/wards': typeof WardsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/data-sources' | '/forecast' | '/methodology' | '/wards'
+  fullPaths:
+    | '/'
+    | '/data-sources'
+    | '/environment'
+    | '/forecast'
+    | '/methodology'
+    | '/wards'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/data-sources' | '/forecast' | '/methodology' | '/wards'
+  to:
+    | '/'
+    | '/data-sources'
+    | '/environment'
+    | '/forecast'
+    | '/methodology'
+    | '/wards'
   id:
-    '__root__' | '/' | '/data-sources' | '/forecast' | '/methodology' | '/wards'
+    | '__root__'
+    | '/'
+    | '/data-sources'
+    | '/environment'
+    | '/forecast'
+    | '/methodology'
+    | '/wards'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DataSourcesRoute: typeof DataSourcesRoute
+  EnvironmentRoute: typeof EnvironmentRoute
   ForecastRoute: typeof ForecastRoute
   MethodologyRoute: typeof MethodologyRoute
   WardsRoute: typeof WardsRoute
@@ -94,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/data-sources'
       fullPath: '/data-sources'
       preLoaderRoute: typeof DataSourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/environment': {
+      id: '/environment'
+      path: '/environment'
+      fullPath: '/environment'
+      preLoaderRoute: typeof EnvironmentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forecast': {
@@ -123,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DataSourcesRoute: DataSourcesRoute,
+  EnvironmentRoute: EnvironmentRoute,
   ForecastRoute: ForecastRoute,
   MethodologyRoute: MethodologyRoute,
   WardsRoute: WardsRoute,
