@@ -146,7 +146,7 @@ export const getJaipurEnvironment = createServerFn({ method: "GET" }).handler(
     try {
       if (powerRes.status !== "fulfilled" || !powerRes.value.ok) throw new Error("NASA POWER request failed");
       const j = (await powerRes.value.json()) as Record<string, any>;
-      const params = j?.properties?.parameter ?? {};
+      const params = (j as any)?.["properties"]?.parameter ?? {};
       const ts = params.TS ?? {};
       const tmax = params.T2M_MAX ?? {};
       bundle.surface.series = Object.keys(ts)
@@ -166,7 +166,7 @@ export const getJaipurEnvironment = createServerFn({ method: "GET" }).handler(
       if (archiveRes.status !== "fulfilled" || !archiveRes.value.ok)
         throw new Error("historical archive request failed");
       const j = (await archiveRes.value.json()) as Record<string, any>;
-      const vals: number[] = (j?.daily?.temperature_2m_max ?? []).filter(
+      const vals: number[] = ((j as any)?.["daily"]?.temperature_2m_max ?? []).filter(
         (v: unknown): v is number => typeof v === "number" && Number.isFinite(v),
       );
       if (vals.length) {
